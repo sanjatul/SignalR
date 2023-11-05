@@ -2,7 +2,7 @@
 
 namespace SignalR.Hubs
 {
-    public class DeathlyHallowsHub:Hub
+    public class DeathlyHallowsHub : Hub
     {
         public Dictionary<string, int> GetRaceStatus()
         {
