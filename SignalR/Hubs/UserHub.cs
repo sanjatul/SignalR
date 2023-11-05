@@ -10,21 +10,24 @@ namespace SignalR.Hubs
         public override Task OnConnectedAsync()
         {
             TotalUsers++;
-            Clients.All.SendAsync("updateTotalUsers",TotalUsers).GetAwaiter().GetResult();
+            Clients.All.SendAsync("updateTotalUsers", TotalUsers).GetAwaiter().GetResult();
             return base.OnConnectedAsync();
         }
+
         public override Task OnDisconnectedAsync(Exception? exception)
         {
             TotalUsers--;
             Clients.All.SendAsync("updateTotalUsers", TotalUsers).GetAwaiter().GetResult();
             return base.OnDisconnectedAsync(exception);
         }
-        public async Task<string> NewWindowLoaded()
+
+
+        public async Task<string> NewWindowLoaded(string name)
         {
             TotalViews++;
-            //Send update to all the clients
-            await Clients.All.SendAsync("updateTotalViews",TotalViews);
-            return $"Total views - {TotalViews}";
+            //send update to all clients that total views have been updated
+            await Clients.All.SendAsync("updateTotalViews", TotalViews);
+            return $"total views from {name} - {TotalViews}";
         }
     }
 }

@@ -3,33 +3,30 @@ var connectionUserCount = new signalR.HubConnectionBuilder()
     //.configureLogging(signalR.LogLevel.Information)
     .withAutomaticReconnect()
     .withUrl("/hubs/userCount", signalR.HttpTransportType.WebSockets).build();
-//Connect to methods that hub invokes aka receives notifications from hub
+
+//connect to methods that hub invokes aka receive notfications from hub
 connectionUserCount.on("updateTotalViews", (value) => {
     var newCountSpan = document.getElementById("totalViewsCounter");
     newCountSpan.innerText = value.toString();
-})
-
+});
 
 connectionUserCount.on("updateTotalUsers", (value) => {
     var newCountSpan = document.getElementById("totalUsersCounter");
     newCountSpan.innerText = value.toString();
-})
+});
 
-//Invoke hub methods aka send notification to hub
-
+//invoke hub methods aka send notification to hub
 function newWindowLoadedOnClient() {
-    connectionUserCount.invoke("NewWindowLoaded", "Siam").then((value) => console.log(value));
+    connectionUserCount.invoke("NewWindowLoaded", "Bhrugen").then((value) => console.log(value));
 }
-//start connection
 
+//start connection
 function fulfilled() {
-    //Do something
-    console.log("Connection to user hub successful");
+    //do something on start
+    console.log("Connection to User Hub Successful");
     newWindowLoadedOnClient();
 }
 function rejected() {
-    //do something
-    console.log("Connection to user hub rejected");
-
+    //rejected logs
 }
 connectionUserCount.start().then(fulfilled, rejected);
