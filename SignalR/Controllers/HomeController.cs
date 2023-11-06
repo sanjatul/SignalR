@@ -20,6 +20,10 @@ namespace SignalR.Controllers
         { 
             return View();
         }
+        public IActionResult BasicChat()
+        {
+            return View();
+        }
         public async Task<IActionResult> DeathlyHallows(string type)
         {
             if (SD.DealthyHallowRace.ContainsKey(type))
